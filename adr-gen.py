@@ -69,6 +69,19 @@ def open_cs():
     Parameter: "template_data" - a dictionary of the form { heading: "<template content suggestion>", ... }
     Returns: nothing (right now). Opens a tkinter window with the template content
     '''
+    def save_input():
+        with open("client_server_style_adr.md", "w") as f:
+            f.write(f"Status: {status_text.get(1.0, END)}")
+            f.write(f"Context: {context_text.get(1.0, END)}")
+            f.write(f"Decision:\n")
+            f.write(f"  Client: {client_text.get(1.0, END)}")
+            f.write(f"  Server: {server_text.get(1.0, END)}")
+            f.write(f"Communication: {communication_text.get(1.0, END)}")
+            f.write(f"Interfaces: {interfaces_text.get(1.0, END)}")
+            f.write(f"Rationale: {rationale_text.get(1.0, END)}")
+            f.write(f"Consequences: {consequences_text.get(1.0, END)}")
+            f.write(f"References: {references_text.get(1.0, END)}")
+
 
     subroot = Tk()
     subroot.title("Client-Server Style ADR")
@@ -113,6 +126,9 @@ def open_cs():
     ttk.Label(subroot, text="References: ").grid(column=0, row=7, sticky="W")
     references_text = Text(subroot, height=2, width=60)
     references_text.grid(column=1, row=7)
+
+    save_button = ttk.Button(subroot, text="Save", command=save_input)
+    save_button.grid(column=1, row=8)
 
 
 
