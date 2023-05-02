@@ -66,8 +66,8 @@ def open_window(template_data):
 def open_cs():
     '''
     Opens a window and adds content based on the data read from the template.
-    Parameter: "template_data" - a dictionary of the form { heading: "<template content suggestion>", ... }
-    Returns: nothing (right now). Opens a tkinter window with the template content
+    Parameter: None
+    Returns: Saved copy of the template
     '''
     def save_input():
         with open("client_server_style_adr.md", "w") as f:
