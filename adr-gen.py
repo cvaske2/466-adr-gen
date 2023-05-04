@@ -56,17 +56,18 @@ def open_window(template_data):
     new_frame.grid()
     
     row_index = 0
-    heading_flags = []
+    heading_flags = dict()
 
     for heading in template_data:
-        heading_flags.append(1)
 
         ttk.Label(new_frame, text=f'{heading}: ').grid(column=0, row=row_index)
-        ttk.Checkbutton(new_frame, variable=heading_flags[row_index], onvalue=1, offvalue=0).grid(column=1, row=row_index)
+        heading_flags[heading] = ttk.Checkbutton(new_frame)
+        heading_flags[heading].grid(column=1, row=row_index)
+        heading_flags[heading].state(["!alternate", "selected"])
         row_index += 1
-
-
-
+    
+    ttk.Button(subroot, text="Done").grid(column=0, row=row_index)
+    ttk.Button(subroot, text="Cancel", command=subroot.destroy).grid(column=1, row=row_index)
 
 
 def open_client_server_style():
