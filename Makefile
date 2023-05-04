@@ -6,7 +6,7 @@ PYINSTALLER_OPTS = -F
 TARGET = adr-gen
 
 # Define the path to the Python script
-PY_SRC = ./adr-gen.py
+PY_SRC = ./$(TARGET).py
 
 # Build the executable with PyInstaller
 pyinstaller:
@@ -14,8 +14,8 @@ pyinstaller:
 
 # Run the executable
 run:
-	~/git/466-adr-gen/dist/adr-gen; exit;
+	./dist/$(TARGET); exit;
 
 # Clean up the PyInstaller build artifacts
 clean:
-	rm -rf build/ dist/ $(TARGET)
+	rm -rf dist/$(TARGET) $(TARGET).spec
