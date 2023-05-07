@@ -1,8 +1,11 @@
 import sys
 from tkinter import *
 from tkinter import ttk
-
+from datetime import date
 import adr_windows
+
+# globals - also act as environment variables
+ADR_DIR = "/adr-test/"
 
 def split_string(template_string):
     '''
@@ -40,7 +43,7 @@ def open_style_template(template_path):
         data = file.read()
     return split_string(data)
 
-def open_window(template_data):
+def open_window(template_data, style):
     '''
     Opens a window and adds content based on the data read from the template.
     Parameter: "template_data" - a diciontary of the form { heading: "<template content suggestion>", ... }
@@ -50,7 +53,7 @@ def open_window(template_data):
     '''
     subroot = Tk()
     #subroot = window
-    subroot.title("Template item select")
+    subroot.title(style)
 
     new_frame = ttk.Frame(subroot, padding=10)
     new_frame.grid()
@@ -66,49 +69,61 @@ def open_window(template_data):
         heading_flags[heading].state(["!alternate", "selected"])
         row_index += 1
     
-    ttk.Button(subroot, text="Done").grid(column=0, row=row_index)
+    ttk.Button(subroot, text="Done", command=lambda: generate_template(heading_flags, template_data, style)).grid(column=0, row=row_index)
     ttk.Button(subroot, text="Cancel", command=subroot.destroy).grid(column=1, row=row_index)
 
+def generate_template(headings, template, style):
+    current_date = date.today().strftime('%d%b%Y')
+    output_string = f"#{style} decision on {current_date}\n\n"
+
+    for heading, checkbutton in headings.items():
+        if "selected" in checkbutton.state(): 
+            output_string += f"**{heading}**: {template[heading]}\n"
+
+    file_name = f"{ADR_DIR}{current_date}_{style}_decision.md".lower()
+    with open(file_name, "w+") as output_file:
+        output_file.write(output_string)
+    exit()
 
 def open_client_server_style():
     template_content = open_style_template("./adr-templates/client-server-style.md")
-    open_window(template_content)
+    open_window(template_content, "Client Server")
 
 def open_data_flow_style():
     template_content = open_style_template("./adr-templates/data-flow-style.md")
-    open_window(template_content)
+    open_window(template_content, "Data Flow")
 
 def open_event_based_style():
     template_content = open_style_template("./adr-templates/event-based-style.md")
-    open_window(template_content)
+    open_window(template_content, "Event-based")
 
 def open_layered_style():
     template_content = open_style_template("./adr-templates/layered-style.md")
-    open_window(template_content)
+    open_window(template_content, "Layered")
 
 def open_main_program_and_subroutine_style():
     template_content = open_style_template("./adr-templates/main-program-and-subroutine-style.md")
-    open_window(template_content)
+    open_window(template_content, "Main Program & Subroutine")
 
 def open_object_oriented_style():
     template_content = open_style_template("./adr-templates/object-oriented-style.md")
-    open_window(template_content)
+    open_window(template_content, "Object Oriented")
 
 def open_peer_to_peer_style():
     template_content = open_style_template("./adr-templates/peer-to-peer-style.md")
-    open_window(template_content)
+    open_window(template_content, "Peer-to-peer")
 
 def open_pipe_and_filter_style():
     template_content = open_style_template("./adr-templates/pipe-and-filter-style.md")
-    open_window(template_content)
+    open_window(template_content, "Pipe & Filter")
 
 def open_publish_subscribe_style():
     template_content = open_style_template("./adr-templates/publish-subscribe-style.md")
-    open_window(template_content)
+    open_window(template_content, "Publish-Subscribe")
 
 def open_rule_based_style():
     template_content = open_style_template("./adr-templates/rule-based-style.md")
-    open_window(template_content)
+    open_window(template_content, "Rule-based")
 
 # def create_new_window():
 #     adr_windows.open_cs()

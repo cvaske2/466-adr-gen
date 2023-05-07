@@ -2,3 +2,4 @@ dist/
 build/
 adr-gen.spec
 __pycache__/
+adr-test/
