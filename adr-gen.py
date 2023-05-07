@@ -74,7 +74,7 @@ def open_window(template_data, style):
 
 def generate_template(headings, template, style):
     current_date = date.today().strftime('%d%b%Y')
-    output_string = f"#{style} decision on {current_date}\n\n"
+    output_string = f"# {style} decision on {current_date}\n\n"
 
     for heading, checkbutton in headings.items():
         if "selected" in checkbutton.state(): 
