@@ -26,6 +26,19 @@ VALID_PARAMS = {
     "Rule-based": ["rule based", "rule-based", "rulebased", "r-b", "rb", "rule", "rules"]
 }
 
+TEMPLATES = {
+    "Client Server": "./adr-templates/client-server-style.md",
+    "Data Flow": "./adr-templates/data-flow-style.md",
+    "Event-based": "./adr-templates/event-based-style.md",
+    "Layered": "./adr-templates/layered-style.md",
+    "Main Program & Subroutine": "./adr-templates/main-program-and-subroutine-style.md",
+    "Object Oriented": "./adr-templates/object-oriented-style.md",
+    "Peer-to-peer": "./adr-templates/peer-to-peer-style.md",
+    "Pipe & Filter": "./adr-templates/pipe-and-filter-style.md",
+    "Publish-Subscribe": "./adr-templates/publish-subscribe-style.md",
+    "Rule-based": "./adr-templates/rule-based-style.md"
+}
+
 def split_string(template_string):
     '''
     Split the string template that has been read from the file into a dictionary.
@@ -62,7 +75,7 @@ def open_style_template(template_path):
         data = file.read()
     return split_string(data)
 
-def open_subwindow(template_data, style, selection = None):
+def open_subwindow(template_data, style):
     '''
     Opens a window and adds content based on the data read from the template.
     Parameter: "template_data" - a diciontary of the form { heading: "<template content suggestion>", ... }
@@ -90,6 +103,7 @@ def open_subwindow(template_data, style, selection = None):
     
     ttk.Button(subroot, text="Done", command=lambda: generate_template_from_gui(heading_flags, template_data, style)).grid(column=0, row=row_index)
     ttk.Button(subroot, text="Cancel", command=subroot.destroy).grid(column=1, row=row_index)
+    subroot.mainloop()
 
 def generate_template_from_gui(headings, template, style):
     current_date = date.today().strftime('%d%b%Y')
@@ -172,7 +186,6 @@ def open_window():
 
 # Grab args and slice off first (name of executable)
 ARGS = sys.argv[1:]
-print(ARGS)
 
 if len(ARGS) == 0:
     open_window()
@@ -186,5 +199,12 @@ elif ARGS[0] in VALID_FLAGS['help']:
     print("#"*50)
     exit()
 elif ARGS[0] in VALID_FLAGS['style']:
-    print(ARGS)
-    print(VALID_PARAMS)
+    chosen_style = ARGS[1]
+
+    for style, style_list in VALID_PARAMS.items():
+        if chosen_style in style_list:
+            template_content = open_style_template(TEMPLATES[style])
+            open_subwindow(template_content, style)
+            break
+else:
+    print("Unknown input. Use 'adr-gen -h' for help.")
