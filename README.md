@@ -8,6 +8,7 @@ Make sure the .exe file (adr-gen.exe) is in the /bin/ directory of one of the sh
 1. `pip install` pyinstaller
 2. Use `pyinstaller -F /path/to/adr-gen.py` to compile the Python code into a single executable
 3. Test the executable by running it in your shell
+    - With Git Bash, you can put the .exe file (along with any of your most-used templates) in your /usr/bin/ directory to use the tool.
 
 ## makefile
 When using the Makefile, make sure you are in the current directory.
