@@ -84,7 +84,6 @@ def open_subwindow(template_data, style):
     Issue: checking a single checkbox changes all of the checkboxes. Need to look into this.
     '''
     subroot = Tk()
-    #subroot = window
     subroot.title(style)
 
     new_frame = ttk.Frame(subroot, padding=10)
@@ -158,9 +157,6 @@ def open_rule_based_style():
     template_content = open_style_template("./adr-templates/rule-based-style.md")
     open_subwindow(template_content, "Rule-based")
 
-# def create_new_window():
-#     adr_windows.open_cs()
-
 def open_window():
     root = Tk()
     frame = ttk.Frame(root, padding=10)
@@ -179,8 +175,8 @@ def open_window():
     ttk.Button(frame, text="Pipe and Filter Style", command=open_pipe_and_filter_style).grid(column=0, row=8)
     ttk.Button(frame, text="Publish/Subscribe Style", command=open_publish_subscribe_style).grid(column=0, row=9)
     ttk.Button(frame, text="Rule-Based Style", command=open_rule_based_style).grid(column=0, row=10)
-    ttk.Button(frame, text="Client Server Style", command=lambda: adr_windows.open_cs()).grid(column=0, row=11)
-    ttk.Button(frame, text="tk event_based", command=lambda: adr_windows.event_based_template()).grid(column=0, row=12)
+    # ttk.Button(frame, text="Client Server Style", command=lambda: adr_windows.open_cs()).grid(column=0, row=11)
+    # ttk.Button(frame, text="tk event_based", command=lambda: adr_windows.event_based_template()).grid(column=0, row=12)
 
     root.mainloop()
 
